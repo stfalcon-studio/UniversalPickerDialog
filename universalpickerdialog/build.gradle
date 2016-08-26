@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -16,6 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+publish {
+    groupId = 'com.github.stfalcon'
+    artifactId = 'universalpickerdialog'
+    publishVersion = '0.1.0'
+    desc = 'Customizable dialog with auto generated pickers inside, which depends on count of dataset.'
+    licences = ['Apache-2.0']
+    uploadName = 'UniversalPickerDialog'
+    website = 'https://github.com/stfalcon-studio/UniversalPickerDialog.git'
 }
 
 dependencies {
