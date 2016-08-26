@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="app_name">Universal Picker Dialog</string>
+
+    <string name="single_pick_title">Pick a city:</string>
+    <string name="multi_pick_title">Configure developer specs:</string>
+
+    <string name="show_single_pick">Single pick</string>
+    <string name="show_multi_pick">Multi pick</string>
+    <string name="show_multi_pick_default_style">Multi pick (Default style)</string>
+
+    <string name="positive_button">Yep!</string>
+    <string name="negative_button">Nope!</string>
+
+    <string name="in">in</string>
+
+</resources>
