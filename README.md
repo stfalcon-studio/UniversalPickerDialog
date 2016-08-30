@@ -1,7 +1,7 @@
 # UniversalPickerDialog
 Customizable dialog with auto generated pickers inside, which depends on count of dataset.
 
-![alt tag](images/demo.png)
+![alt tag](images/picker_dialog_demo.gif)
 
 ### Download
 
