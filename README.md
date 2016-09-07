@@ -1,5 +1,5 @@
 # UniversalPickerDialog
-Customizable dialog with auto generated pickers inside, which depends on count of dataset.
+Customizable dialog with auto generated pickers inside that depend on the dataset count.
 
 ![alt tag](images/picker_dialog_demo.gif)
 
@@ -39,7 +39,7 @@ public void onPick(int[] selectedValues, int key) {
 }
 ```
 
-Now you can build the dialog and show it. Just add this few lines:
+Now you can build the dialog and show it. Just add these few lines:
 ```java
 new UniversalPickerDialog.Builder(this)
                 .setTitle(R.string.hello)
@@ -50,10 +50,10 @@ new UniversalPickerDialog.Builder(this)
                 )
                 .show();
 ```
-Data set is passing to Picker using Input class (which supported lists as well as arrays, so you are free from data convertations :)).
-It takes in constructor default item position in carousel as first argument and data set as second.
+Data set is passing to Picker using Input class that supports lists as well as arrays, so no data conversion is required :)).
+It takes in constructor default item position in carousel as the first argument and data set as the second.
 
-Builder was extended by many methods for more flexibility and convenience of use.
+Builder was extended by a many methods for more flexibility and convenience of use.
 Here's the full list (you can find the javadoc on each of these methods):
 ```java
 new UniversalPickerDialog.Builder(this)
@@ -91,7 +91,7 @@ Look [Sample project] [sample] for more information.
 ### License
 
 ```
-Copyright (C) 2016 Alexander Krol, stfalcon.com
+Copyright (C) 2016 stfalcon.com
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
