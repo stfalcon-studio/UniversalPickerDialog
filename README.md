@@ -89,7 +89,7 @@ new UniversalPickerDialog.Builder(this)
                 .show();
 ```
 
-Look [Sample project] [sample] for more information.
+Take a look at the [sample project](https://github.com/stfalcon-studio/UniversalPickerDialog/tree/master/sample) for more information.
 
 ### License
 
@@ -109,6 +109,3 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 ```
-
-
-[sample]: <https://github.com/stfalcon-studio/UniversalPickerDialog/tree/master/sample>
