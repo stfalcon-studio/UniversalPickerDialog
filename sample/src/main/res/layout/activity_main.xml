@@ -42,6 +42,27 @@
             android:text="@string/show_multi_pick_default_style"
             android:theme="@style/AccentButton"/>
 
+        <Button
+            android:id="@+id/cancelListenerDialogButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/show_cancel_listener"
+            android:theme="@style/AccentButton"/>
+
+        <Button
+            android:id="@+id/notCancelableDialogButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/show_not_cancelable"
+            android:theme="@style/AccentButton"/>
+
+        <Button
+            android:id="@+id/wrapSelectorWheelDialogButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/show_wrap_selector_wheel"
+            android:theme="@style/AccentButton"/>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

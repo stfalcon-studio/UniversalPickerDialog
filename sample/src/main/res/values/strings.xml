@@ -8,6 +8,9 @@
     <string name="show_single_pick">Single pick</string>
     <string name="show_multi_pick">Multi pick</string>
     <string name="show_multi_pick_default_style">Multi pick (Default style)</string>
+    <string name="show_cancel_listener">Cancel Listener</string>
+    <string name="show_not_cancelable">Not cancelable</string>
+    <string name="show_wrap_selector_wheel">Wrap selector wheel or not</string>
 
     <string name="positive_button">Yep!</string>
     <string name="negative_button">Nope!</string>
