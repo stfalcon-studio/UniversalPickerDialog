@@ -82,7 +82,7 @@ public class UniversalPickerDialog
         builder.minValue(0);
         builder.maxValue(input.list.size() - 1);
         builder.defaultValue(input.defaultPosition);
-        builder.wrapSelectorWheel(true);
+        builder.wrapSelectorWheel(input.wrapSelectorWheel);
         builder.backgroundColor(Color.TRANSPARENT);
 
         if (this.builder.contentTextSize != 0) {
@@ -129,18 +129,10 @@ public class UniversalPickerDialog
     }
 
     protected void createDialog() {
-        this.dialog = new AlertDialog.Builder(builder.context)
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(builder.context)
                 .setTitle(getTitle())
                 .setView(layout)
-                .setCancelable(true)
-                .setNegativeButton(
-                        getNegativeButtonText(),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        })
+                .setCancelable(builder.cancelable)
                 .setPositiveButton(
                         getPositiveButtonText(),
                         new DialogInterface.OnClickListener() {
@@ -153,8 +145,26 @@ public class UniversalPickerDialog
                                 if (builder.listener != null)
                                     builder.listener.onPick(selectedValues, builder.key);
                             }
-                        })
-                .create();
+                        });
+        if (builder.cancelable) {
+            alertDialogBuilder.setNegativeButton(
+                            getNegativeButtonText(),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+        }
+        if (builder.cancelListener != null) {
+            alertDialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+                    builder.cancelListener.onCancel(builder.key);
+                }
+            });
+        }
+        this.dialog = alertDialogBuilder.create();
 
         if (builder.backgroundColor != 0) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(builder.backgroundColor));
@@ -217,6 +227,20 @@ public class UniversalPickerDialog
     }
 
     /**
+     * Interface definition for a callback to be invoked when dialog is cancelled
+     * */
+    public interface OnCancelListener {
+
+        /**
+         * Called when dialog has been cancelled
+         *
+         * @param key key for dialog.
+
+         * */
+        void onCancel(int key);
+    }
+
+    /**
      * Wrapper for representing a data set with default position in list
      * */
     public static class Input {
@@ -224,6 +248,7 @@ public class UniversalPickerDialog
         private int defaultPosition;
         private AbstractList<?> list;
         private NumberPicker.Formatter formatter;
+        private boolean wrapSelectorWheel = true;
 
         /**
          * Constructor for data represented in {@link AbstractList}
@@ -248,12 +273,37 @@ public class UniversalPickerDialog
         }
 
         /**
+         * Constructor for data represented in {@link AbstractList}
+         *
+         * @param defaultPosition is a position of item which selected by default
+         * @param list list of objects
+         * @param wrapSelectorWheel wrapSelectorWheel
+         * */
+        public Input(int defaultPosition, AbstractList<?> list, boolean wrapSelectorWheel) {
+            this.defaultPosition = defaultPosition;
+            this.list = list;
+            this.wrapSelectorWheel = wrapSelectorWheel;
+        }
+
+        /**
+         * Constructor for data represented in array
+         *
+         * @param defaultPosition is a position of item which selected by default
+         * @param array array of objects
+         * @param wrapSelectorWheel wrapSelectorWheel
+         * */
+        public <T> Input(int defaultPosition, T[] array, boolean wrapSelectorWheel) {
+            this.defaultPosition = defaultPosition;
+            this.list = new ArrayList<>(Arrays.asList(array));
+            this.wrapSelectorWheel = wrapSelectorWheel;
+        }
+
+        /**
          * Set {@link android.widget.NumberPicker.Formatter} for format current value into a string for presentation
          * */
         public void setFormatter(NumberPicker.Formatter formatter) {
             this.formatter = formatter;
         }
-
     }
 
     /**
@@ -269,7 +319,9 @@ public class UniversalPickerDialog
         private String title;
         private String negativeButtonText, positiveButtonText;
         private OnPickListener listener;
+        private OnCancelListener cancelListener;
         private Input[] inputs;
+        private boolean cancelable = true;
 
         /**
          * Constructor using a context for this builder and the {@link UniversalPickerDialog} it creates.
@@ -488,6 +540,16 @@ public class UniversalPickerDialog
         }
 
         /**
+         * Set {@link OnCancelListener} for picker.
+         *
+         * @return This Builder object to allow for chaining of calls to set methods
+         * */
+        public Builder setCancelListener(OnCancelListener cancelListener) {
+            this.cancelListener = cancelListener;
+            return this;
+        }
+
+        /**
          * Set list of {@link Input}'s using varargs.
          * Each {@link Input} is representing an spinner in dialog with list of items from its {@link Input#list}
          *
@@ -495,6 +557,16 @@ public class UniversalPickerDialog
          * */
         public Builder setInputs(Input... inputs) {
             this.inputs = inputs;
+            return this;
+        }
+
+        /**
+         * Set cancelable for picker.
+         *
+         * @return This Builder object to allow for chaining of calls to set methods
+         * */
+        public Builder setCancelable(boolean cancelable) {
+            this.cancelable = cancelable;
             return this;
         }
 

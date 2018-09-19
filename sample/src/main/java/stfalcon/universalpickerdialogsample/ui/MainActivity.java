@@ -46,6 +46,14 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.multiPickDefaultDialogButton)
                 .setOnClickListener(this);
 
+        findViewById(R.id.cancelListenerDialogButton)
+                .setOnClickListener(this);
+
+        findViewById(R.id.notCancelableDialogButton)
+                .setOnClickListener(this);
+
+        findViewById(R.id.wrapSelectorWheelDialogButton)
+                .setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +80,38 @@ public class MainActivity extends AppCompatActivity
                         KEY_MULTI_PICK,
                         new UniversalPickerDialog.Input(2, levels),
                         new UniversalPickerDialog.Input(0, specializations),
+                        getFormattedCitiesInput()
+                );
+                break;
+            case R.id.cancelListenerDialogButton:
+                new UniversalPickerDialog.Builder(this)
+                        .setTitle(R.string.show_cancel_listener)
+                        .setListener(this)
+                        .setCancelListener(new UniversalPickerDialog.OnCancelListener() {
+                            @Override
+                            public void onCancel(int key) {
+                                Toast.makeText(MainActivity.this, "You chose cancel.", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setInputs(new UniversalPickerDialog.Input(0, citiesList))
+                        .setKey(KEY_SINGLE_PICK)
+                        .show();
+                break;
+            case R.id.notCancelableDialogButton:
+                new UniversalPickerDialog.Builder(this)
+                        .setTitle(R.string.show_cancel_listener)
+                        .setListener(this)
+                        .setCancelable(false)
+                        .setInputs(new UniversalPickerDialog.Input(0, citiesList))
+                        .setKey(KEY_SINGLE_PICK)
+                        .show();
+                break;
+            case R.id.wrapSelectorWheelDialogButton:
+                showCustomizedPicker(
+                        R.string.multi_pick_title,
+                        KEY_MULTI_PICK,
+                        new UniversalPickerDialog.Input(2, levels, false),
+                        new UniversalPickerDialog.Input(0, specializations, true),
                         getFormattedCitiesInput()
                 );
                 break;
